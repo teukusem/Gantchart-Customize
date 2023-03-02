@@ -78,8 +78,14 @@ function App() {
         <Tooltip
 					placement="topLeft"
 					color="#FFFF"
-					title={'HAI hahahhah'}>
-        {item.title}
+					title={
+            <div style={{width:1000}}>
+              <p style={{color:'black'}}> hahahhah</p>
+            </div>
+          }>
+             <>
+                {item.title}
+             </>
           {/* <TestDiv/> */}
           </Tooltip>
       </div>
@@ -98,8 +104,8 @@ function App() {
     <Timeline
       maxZoom={1 * 2 * (86400 / 5) * 1000}
       canMove={true}
-      visibleTimeStart={visibleTimeStartValue}
-      visibleTimeEnd={visibleTimeEndValue}
+      // visibleTimeStart={visibleTimeStartValue}
+      // visibleTimeEnd={visibleTimeEndValue}
       traditionalZoom={true}
       sidebarWidth={0}
       lineHeight={70}
