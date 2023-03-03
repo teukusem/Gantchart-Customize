@@ -84,4 +84,9 @@
 
 .react-calendar-timeline .rct-item{
   border-radius: 50px;
+  border-width: 0px !important;
+}
+
+.timeLineMarker{
+  background-color: aqua !important;
 }
