@@ -5,10 +5,13 @@ import './App.css'
 import {Col, Row, Tooltip} from 'antd'
 import TooltipCard from './Components/TooltipCard'
 import { styleGlobal } from './Style/styleGlobal'
+import react ,{useState} from 'react'
 
 function App() {
+  const [rowDownItem,setRowDownItem] = useState(0)
   const groups = [
-    { id: 1, title: 'group 1'}, { id: 2, title: 'group 2' }, { id: 3, title: 'group 3' }]
+    { id: 1, title: 'group 1', height: rowDownItem === 1 ? 200 : 70}, { id: 2, title: 'group 2', height: rowDownItem === 2 ? 200 : 70 }, { id: 3, title: 'group 3' ,height: rowDownItem === 1 ? 200 : 70}]
+
 
   const items = [
     {
@@ -40,9 +43,11 @@ function App() {
 
 
   const itemRenderDetail = ({getItemProps,getResizeProps,item,itemContext,timelineContext}) => {
+    const { left: leftResizeProps, right: rightResizeProps } = getResizeProps()
     return (
       <div {...getItemProps(item.itemProps)}>
-        <Row>
+          {itemContext.useResizeHandle ? <div {...leftResizeProps} /> : ''}
+        <Row> 
             <Tooltip 
               color={styleGlobal.colors.netral}
               title={<TooltipCard/>}  	
@@ -52,15 +57,18 @@ function App() {
               }}
               placement="topLeft"
             >
-              <Col span={20} onClick={() => itemContext.selected === true && alert(`holla ${item.id_order_header}`)}> 
+              <Col span={20} onClick={() => itemContext.selected === true && console.log(`holla ${item.id_order_header}`)}> 
                 {itemContext.title}
               </Col>
             </Tooltip>
-          <Col span={4} onClick={() => itemContext.selected === true && alert(`bacot ${item.id_order_header}`)}>X</Col>
-
+          <Col span={4} onClick={() => itemContext.selected === true && console.log(`bacot ${item.id_order_header}`)}>X</Col>
         </Row>
       </div>
     )
+  }
+
+  const handleItemSelect = (itemId) => {
+    setRowDownItem(itemId)
   }
 
   const minZoom = 60 * 60 * 5000; // 5 hour in milliseconds
@@ -79,6 +87,8 @@ function App() {
         itemRenderer={itemRenderDetail}
         minZoom={minZoom} 
         maxZoom={maxZoom}
+        onItemSelect={handleItemSelect}
+        onItemDeselect={() => setRowDownItem(0)}
       >
           <TimelineHeaders>
             <DateHeader unit="primaryHeader" 
