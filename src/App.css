@@ -90,3 +90,11 @@
 .timeLineMarker{
   background-color: aqua !important;
 }
+
+.rct-dateHeader-primary span {
+  position: -webkit-sticky !important; 
+  position: sticky !important;
+  top: 0 !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
