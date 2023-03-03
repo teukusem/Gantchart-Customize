@@ -11,11 +11,18 @@ import { DownloadOutlined } from '@ant-design/icons';
 function App() {
   const [rowDownItem, setRowDownItem] = useState(0)
   const [rightDownID, setRightDownID] = useState(null)
-  const groups = [
-    { id: 1, title: 'group 1', height: rowDownItem === 1 ? 200 : 70 },
-    { id: 2, title: 'group 2', height: rowDownItem === 2 ? 200 : 70 },
-    { id: 3, title: 'group 3', height: rowDownItem === 1 ? 200 : 70 }]
 
+  const groups = (rowDownItem) => {
+    let arrGroup = []
+    for(let i = 1; i < 10; i++){
+      arrGroup.push({
+        id: i,
+        title: `group ${i}`,
+        height: rowDownItem === i ? 200 : 70
+      })
+    }
+    return arrGroup
+  }
 
   const items = [
     {
@@ -126,7 +133,7 @@ function App() {
   return (
     <div>
       <Timeline
-        groups={groups}
+        groups={groups(rowDownItem)}
         items={items}
         sidebarWidth={0}
         defaultTimeStart={moment().add(-12, 'hour')}
