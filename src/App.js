@@ -2,13 +2,19 @@ import moment from 'moment'
 import Timeline, { DateHeader, TimelineHeaders, TodayMarker, } from 'react-calendar-timeline'
 import 'react-calendar-timeline/lib/Timeline.css'
 import './App.css'
-import { Button, Col, Row, Tooltip } from 'antd'
+import { Col, Modal, Row, Tooltip } from 'antd'
 import TooltipCard from './Components/TooltipCard'
 import { styleGlobal } from './Style/styleGlobal'
-import react, { useState } from 'react'
-import { DownloadOutlined } from '@ant-design/icons';
+import { useState } from 'react'
+import { ItemDropDownGantchart, StyledColHeightFix, StyledRowPointer } from './StyledComponent/DropdownItem'
+import { DottedIcon } from './Icons/DottedIcon'
+import { IconPlusCircle } from './Icons/IconPlusCircle'
+import  { useMediaQuery } from 'react-responsive'
+import { IconJangkar } from './Icons/IconJangkar'
+import { FromToOnTop } from './Components/FromToOnTop'
 
 function App() {
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 })
   const [rowDownItem, setRowDownItem] = useState(0)
   const [rightDownID, setRightDownID] = useState(0)
   const [leftDownID,setLeftDownID] = useState(0)
@@ -29,7 +35,7 @@ function App() {
     {
       id: 1,
       group: 1,
-      title: 'item 1',
+      title: 'MV PAROS',
       id_order_header: 1,
       start_time: moment(),
       end_time: moment().add(4, 'hour')
@@ -37,35 +43,54 @@ function App() {
     {
       id: 2,
       group: 2,
-      title: 'item 2',
+      title: 'MV PAROS 2',
       id_order_header: 2,
       start_time: moment().add(-0.5, 'hour'),
-      end_time: moment().add(1, 'hour')
+      end_time: moment().add(2.5, 'hour')
     },
     {
       id: 3,
       group: 3,
-      title: 'item 3',
+      title: 'MV PAROS 3',
       id_order_header: 3,
       start_time: moment().add(2, 'hour'),
       end_time: moment().add(5, 'hour')
     }
   ]
 
-  const handleItemSelect = (itemId) => {
-    setRowDownItem(itemId)
+  const handleItemClickedLeft = (item) => {
+    setRowDownItem(item.group)
+    setLeftDownID(item.id)
+    setRightDownID(0)
   }
 
-  const handleItemRight = (id) => {
-    setRightDownID(id)
+  const handleItemClickedRight = (item) => {
+    setRowDownItem(item.group)
+    setRightDownID(item.id)
+    setLeftDownID(0)
   }
 
-  const itemRenderDetail = ({ getItemProps, getResizeProps, item, itemContext, timelineContext }) => {
-    const { left: leftResizeProps, right: rightResizeProps } = getResizeProps()
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
+  const itemRenderDetail = ({ getItemProps, item, itemContext, timelineContext }) => {
     return (
-      <div {...getItemProps(item.itemProps)}>
-        {itemContext.useResizeHandle ? <div {...leftResizeProps} /> : ''}
-        <Row justify='space-around'>
+      <div {...getItemProps({style:{
+        marginTop: 20,
+        marginLeft: 0,
+						paddingLeft: 0,
+      }})}>
+        <StyledRowPointer justify='space-around'>
             <Tooltip
               color={styleGlobal.colors.netral}
               title={<TooltipCard />}
@@ -75,84 +100,84 @@ function App() {
               }}
               placement="topLeft"
             >
-              <Col 
-                span={18}
-                onClick={() => {
-                  handleItemSelect(item.group)
-                  setLeftDownID(item.id)
-                }}
-              >
-                {itemContext.title}
-              </Col>
-            </Tooltip>
-          <Col span={6}>
-          <Row>
-          <div 
-            >
-            <Button
-              type="primary" shape="circle" icon={<DownloadOutlined />} size='small' />
-          </div>
-          <div 
-                onClick={() => {
-                  handleItemSelect(item.group)
-                  handleItemRight(item.id)
-                }}
+              <StyledColHeightFix 
+                span={14}
+                onClick={() => handleItemClickedLeft(item)}
                 >
-            X
-          </div>
-          </Row>
+                <FromToOnTop />
+              <div
+              >
+                <span>
+                {itemContext.title}
+                </span>
+              </div>
+              </StyledColHeightFix>
+            </Tooltip>
+          <StyledColHeightFix span={10}>
+          <Row >
+          <Col span={20}
+          style={{display:'flex',justifyContent:'end'}}
+            >
+              <span className='iconInItem'>
+                <IconJangkar/>
+              </span>
+              <span className='iconInItem'>
+                <IconJangkar/>
+              </span>
+              <span className='iconInItem'>
+                <IconJangkar/>
+              </span>
+            <span
+              onClick={() => showModal()}
+            > 
+              <IconPlusCircle
+            />
+            </span>
           </Col>
-
-        </Row>
+          <Col span={4}
+           style={{display:'flex',justifyContent:'end'}}
+            onClick={() => handleItemClickedRight(item)}
+          >
+            <DottedIcon />
+          </Col>
+          </Row>
+          </StyledColHeightFix>
+        </StyledRowPointer>
 
         {rightDownID === item.id && (
-        <div
-          style={{
-            width: 157,
-            position: 'absolute',
-            right: 0,
-            top: 50,
-            borderRadius: 25,
-            padding: 10,
-            border: `0.5px solid red`,
-            zIndex: 1100,
-            backgroundColor: '#FFFFFF',
-            color: 'black'
-          }}
-        >
-          <p>ASEMM</p>
-        </div>
+        <ItemDropDownGantchart widthItem={'125px'}>
+          <p onClick={() => showModal()}>ASEMM</p>
+        </ItemDropDownGantchart>
         )}
+
         {leftDownID === item.id && (
-          <div
-          style={{
-            width: '100%',
-            position: 'absolute',
-            right: 0,
-            top: 50,
-            borderRadius: 25,
-            padding: 10,
-            border: `0.5px solid red`,
-            zIndex: 1100,
-            backgroundColor: '#FFFFFF',
-            color: 'black'
-          }}
-        >
-          <p>Bacot lu</p>
-        </div>
+          <ItemDropDownGantchart widthItem={'100%'}>
+          <p onClick={() => showModal()}>HEBAT</p>
+        </ItemDropDownGantchart>
         )}
       </div>
     )
   }
 
 
-
-  const minZoom = 60 * 60 * 5000; // 5 hour in milliseconds
+  const minZoom = 60 * 60 * 7000; // 5 hour in milliseconds
   const maxZoom = 24 * 60 * 60 * 1000; // 1 day in milliseconds
 
+ 
 
   return (
     <div>
+       {isTabletOrMobile && (
+        <div className='isNotDesktop'>
+          <p>Sorry Cannot Open From Handphone :( <br/> You Can Open It From Desktop Or PC</p>
+        </div>
+      )}
+    <div className='isResponsive'>
+      <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Modal>
       <Timeline
         groups={groups(rowDownItem)}
         items={items}
@@ -192,6 +217,8 @@ function App() {
         </TodayMarker>
       </Timeline>
     </div>
+    </div>
+
   );
 }
 
