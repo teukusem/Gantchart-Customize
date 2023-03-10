@@ -1,35 +1,41 @@
-import moment from 'moment'
-import Timeline, { DateHeader, TimelineHeaders, TodayMarker, } from 'react-calendar-timeline'
-import 'react-calendar-timeline/lib/Timeline.css'
-import './App.css'
-import { Col, Modal, Row, Tooltip } from 'antd'
-import TooltipCard from './Components/TooltipCard'
-import { styleGlobal } from './Style/styleGlobal'
-import { useState } from 'react'
-import { ItemDropDownGantchart, StyledColHeightFix, StyledRowPointer } from './StyledComponent/DropdownItem'
-import { DottedIcon } from './Icons/DottedIcon'
-import { IconPlusCircle } from './Icons/IconPlusCircle'
-import  { useMediaQuery } from 'react-responsive'
-import { IconJangkar } from './Icons/IconJangkar'
-import { FromToOnTop } from './Components/FromToOnTop'
+import moment from 'moment';
+import Timeline, { DateHeader, TimelineHeaders, TodayMarker } from 'react-calendar-timeline';
+import 'react-calendar-timeline/lib/Timeline.css';
+import './App.css';
+import { Col, Modal, Row, Tooltip } from 'antd';
+import TooltipCard from './Components/TooltipCard';
+import { styleGlobal } from './Style/styleGlobal';
+import { useState } from 'react';
+import {
+  ItemDropDownGantchart,
+  StyledColHeightFix,
+  StyledRowPointer,
+  StyledSpanRighDropDown,
+} from './StyledComponent/GantchartStyled';
+import { DottedIcon } from './Icons/DottedIcon';
+import { IconPlusCircle } from './Icons/IconPlusCircle';
+import { useMediaQuery } from 'react-responsive';
+import { IconJangkar } from './Icons/IconJangkar';
+import { FromToOnTop } from './Components/FromToOnTop';
+import ResourceItemDropdown from './Components/ResourceItemDropdown';
 
 function App() {
-  const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 })
-  const [rowDownItem, setRowDownItem] = useState(0)
-  const [rightDownID, setRightDownID] = useState(0)
-  const [leftDownID,setLeftDownID] = useState(0)
+  const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
+  const [rowDownItem, setRowDownItem] = useState(0);
+  const [rightDownID, setRightDownID] = useState(0);
+  const [leftDownID, setLeftDownID] = useState(0);
 
   const groups = (rowDownItem) => {
-    let arrGroup = []
-    for(let i = 1; i < 10; i++){
+    let arrGroup = [];
+    for (let i = 1; i < 10; i++) {
       arrGroup.push({
         id: i,
         title: `group ${i}`,
-        height: rowDownItem === i ? 200 : 70
-      })
+        height: rowDownItem === i ? 300 : 70,
+      });
     }
-    return arrGroup
-  }
+    return arrGroup;
+  };
 
   const items = [
     {
@@ -38,7 +44,7 @@ function App() {
       title: 'MV PAROS',
       id_order_header: 1,
       start_time: moment(),
-      end_time: moment().add(4, 'hour')
+      end_time: moment().add(4, 'hour'),
     },
     {
       id: 2,
@@ -46,7 +52,7 @@ function App() {
       title: 'MV PAROS 2',
       id_order_header: 2,
       start_time: moment().add(-0.5, 'hour'),
-      end_time: moment().add(2.5, 'hour')
+      end_time: moment().add(2.5, 'hour'),
     },
     {
       id: 3,
@@ -54,21 +60,21 @@ function App() {
       title: 'MV PAROS 3',
       id_order_header: 3,
       start_time: moment().add(2, 'hour'),
-      end_time: moment().add(5, 'hour')
-    }
-  ]
+      end_time: moment().add(5, 'hour'),
+    },
+  ];
 
   const handleItemClickedLeft = (item) => {
-    setRowDownItem(item.group)
-    setLeftDownID(item.id)
-    setRightDownID(0)
-  }
+    setRowDownItem(item.group);
+    setLeftDownID(item.id);
+    setRightDownID(0);
+  };
 
   const handleItemClickedRight = (item) => {
-    setRowDownItem(item.group)
-    setRightDownID(item.id)
-    setLeftDownID(0)
-  }
+    setRowDownItem(item.group);
+    setRightDownID(item.id);
+    setLeftDownID(0);
+  };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
@@ -85,94 +91,86 @@ function App() {
 
   const itemRenderDetail = ({ getItemProps, item, itemContext, timelineContext }) => {
     return (
-      <div {...getItemProps({style:{
-        marginTop: 20,
-        marginLeft: 0,
-						paddingLeft: 0,
-      }})}>
-        <StyledRowPointer justify='space-around'>
-            <Tooltip
-              color={styleGlobal.colors.netral}
-              title={<TooltipCard />}
-              overlayInnerStyle={{
-                borderRadius: 10,
-                width: 300,
-              }}
-              placement="topLeft"
-            >
-              <StyledColHeightFix 
-                span={14}
-                onClick={() => handleItemClickedLeft(item)}
-                >
-                <FromToOnTop />
-              <div
-              >
-                <span>
-                {itemContext.title}
-                </span>
-              </div>
-              </StyledColHeightFix>
-            </Tooltip>
-          <StyledColHeightFix span={10}>
-          <Row >
-          <Col span={20}
-          style={{display:'flex',justifyContent:'end'}}
-            >
-              <span className='iconInItem'>
-                <IconJangkar/>
-              </span>
-              <span className='iconInItem'>
-                <IconJangkar/>
-              </span>
-              <span className='iconInItem'>
-                <IconJangkar/>
-              </span>
-            <span
-              onClick={() => showModal()}
-            > 
-              <IconPlusCircle
-            />
-            </span>
-          </Col>
-          <Col span={4}
-           style={{display:'flex',justifyContent:'end'}}
-            onClick={() => handleItemClickedRight(item)}
+      <div
+        {...getItemProps({
+          style: {
+            marginTop: 20,
+            marginLeft: 0,
+            paddingLeft: 0,
+            background: styleGlobal.colors.primary,
+          },
+        })}
+      >
+        <StyledRowPointer justify="space-around">
+          <Tooltip
+            color={styleGlobal.colors.netral}
+            title={<TooltipCard />}
+            overlayInnerStyle={{
+              borderRadius: 10,
+              width: 300,
+            }}
+            placement="topLeft"
           >
-            <DottedIcon />
-          </Col>
-          </Row>
+            <StyledColHeightFix span={18} onClick={() => handleItemClickedLeft(item)}>
+              <FromToOnTop />
+              <div>
+                <span>{itemContext.title}</span>
+              </div>
+            </StyledColHeightFix>
+          </Tooltip>
+          <StyledColHeightFix span={6}>
+            <Row>
+              <Col span={20} style={{ display: 'flex', justifyContent: 'end' }}>
+                <span className="iconInItem">
+                  <IconJangkar />
+                </span>
+                <span className="iconInItem">
+                  <IconJangkar />
+                </span>
+                <span className="iconInItem">
+                  <IconJangkar />
+                </span>
+                <span onClick={() => showModal()}>
+                  <IconPlusCircle />
+                </span>
+              </Col>
+              <Col
+                span={4}
+                style={{ display: 'flex', justifyContent: 'end' }}
+                onClick={() => handleItemClickedRight(item)}
+              >
+                <DottedIcon />
+              </Col>
+            </Row>
           </StyledColHeightFix>
         </StyledRowPointer>
 
         {rightDownID === item.id && (
-        <ItemDropDownGantchart widthItem={'125px'}>
-          <p onClick={() => showModal()}>ASEMM</p>
-        </ItemDropDownGantchart>
+          <ItemDropDownGantchart widthItem={'118px'}>
+            <StyledSpanRighDropDown onClick={() => showModal()}>Reschedule</StyledSpanRighDropDown>
+            <StyledSpanRighDropDown onClick={() => showModal()}>Deploy All</StyledSpanRighDropDown>
+            <StyledSpanRighDropDown onClick={() => showModal()}>Open AIS</StyledSpanRighDropDown>
+            <StyledSpanRighDropDown onClick={() => showModal()}>Generate Token</StyledSpanRighDropDown>
+          </ItemDropDownGantchart>
         )}
 
-        {leftDownID === item.id && (
-          <ItemDropDownGantchart widthItem={'100%'}>
-          <p onClick={() => showModal()}>HEBAT</p>
-        </ItemDropDownGantchart>
-        )}
+        {leftDownID === item.id && <ResourceItemDropdown />}
       </div>
-    )
-  }
-
+    );
+  };
 
   const minZoom = 60 * 60 * 7000; // 5 hour in milliseconds
   const maxZoom = 24 * 60 * 60 * 1000; // 1 day in milliseconds
 
- 
-
   return (
-    <div>
-       {isTabletOrMobile && (
-        <div className='isNotDesktop'>
-          <p>Sorry Cannot Open From Handphone :( <br/> You Can Open It From Desktop Or PC</p>
+    <div className="container">
+      {isTabletOrMobile && (
+        <div className="isNotDesktop">
+          <p>
+            Sorry Cannot Open From Handphone :( <br /> You Can Open It From Desktop Or PC
+          </p>
         </div>
       )}
-    <div className='isResponsive'>
       <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
         <p>Some contents...</p>
         <p>Some contents...</p>
@@ -184,22 +182,19 @@ function App() {
         sidebarWidth={0}
         defaultTimeStart={moment().add(-12, 'hour')}
         defaultTimeEnd={moment().add(12, 'hour')}
-        lineHeight={70}
+        lineHeight={60}
         itemRenderer={itemRenderDetail}
         minZoom={minZoom}
         maxZoom={maxZoom}
         onItemDeselect={() => {
-          setRowDownItem(0)
-          setRightDownID(0)
-          setLeftDownID(0)
+          setRowDownItem(0);
+          setRightDownID(0);
+          setLeftDownID(0);
         }}
       >
         <TimelineHeaders>
-          <DateHeader unit="primaryHeader"
-          />
-          <DateHeader
-            labelFormat={'HH:mm'}
-          />
+          <DateHeader unit="primaryHeader" />
+          <DateHeader labelFormat={'HH:mm'} />
         </TimelineHeaders>
         <TodayMarker>
           {({ styles }) => {
@@ -209,16 +204,12 @@ function App() {
               width: '1px',
               borderStyle: 'dashed',
               borderColor: 'red',
-            }
-            return (
-              <div style={styles} />
-            )
+            };
+            return <div style={styles} />;
           }}
         </TodayMarker>
       </Timeline>
     </div>
-    </div>
-
   );
 }
 

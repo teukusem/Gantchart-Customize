@@ -1,4 +1,3 @@
-
 .App {
   text-align: center;
 }
@@ -44,63 +43,67 @@
 }
 
 .react-calendar-timeline .rct-dateHeader {
-  border-left : none;
-  border-bottom:none;
+  border-left: none;
+  border-bottom: none;
   background-color: #ffff;
 }
-
 
 .rct-vertical-lines .rct-vl {
   border: 1px solid #c4c4c4;
   border-style: dotted;
-  border-left:none !important;
+  border-left: none !important;
 }
 
-
-.react-calendar-timeline .rct-horizontal-lines .rct-hl-even{
+.react-calendar-timeline .rct-horizontal-lines .rct-hl-even {
   border-bottom: none;
 }
 
-.react-calendar-timeline .rct-horizontal-lines .rct-hl-odd{
+.react-calendar-timeline .rct-horizontal-lines .rct-hl-odd {
   background: #ffff;
   border-bottom: none;
 }
 
 .react-calendar-timeline .rct-header .rct-label-group > span {
-  color: red ;
+  color: red;
 }
 
 .rct-day-6,
-  .rct-day-0 {
-    background: transparent !important;
-  }
+.rct-day-0 {
+  background: transparent !important;
+}
 
-.rct-item-content{
+.rct-item-content {
   display: flex !important;
 }
 .react-calendar-timeline .rct-item.selected.can-resize-right {
   border-right-width: 0px;
-} 
+}
 
-.react-calendar-timeline .rct-item{
+.react-calendar-timeline .rct-item {
   border-radius: 50px;
   border-width: 0px !important;
 }
 
 .rct-dateHeader-primary span {
-  position: -webkit-sticky !important; 
+  position: -webkit-sticky !important;
   position: sticky !important;
   top: 0 !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
+  left: 5% !important;
+  /* transform: translateX(-50%) !important; */
 }
 
-.iconInItem{
+.iconInItem {
   margin-left: -6px;
 }
 
+.divWrapButtonSpk {
+  display: flex;
+  padding: 2px 0px;
+  justify-content: center;
+}
+
 @media (max-width: 1024px) {
-  .isResponsive{
+  .isResponsive {
     display: none;
   }
   .isNotDesktop {
