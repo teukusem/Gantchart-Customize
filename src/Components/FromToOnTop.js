@@ -1,6 +1,8 @@
-import { Row } from 'antd';
+import { Row, Tooltip } from 'antd';
 import IconArrowWithCircle from '../Icons/IconArrowWIthCircle';
 import IconArrowRight from '../Icons/IconArrowWithCircleRight';
+import { TextElipsis } from '../StyledComponent/GantchartStyled';
+import { styleGlobal } from '../Style/styleGlobal';
 
 export const FromToOnTop = ({}) => {
   return (
@@ -16,22 +18,46 @@ export const FromToOnTop = ({}) => {
         }}
       >
         <IconArrowWithCircle />
-        <span
-          style={{
-            paddingLeft: 10,
-            paddingRight: 10,
+        <Tooltip
+          color={styleGlobal.colors.netral}
+          title={'LAUT'}
+          overlayInnerStyle={{
+            borderRadius: 10,
+            maxWidth: 250,
+            color: 'black',
           }}
+          placement="topLeft"
         >
-          LAUT
-        </span>
+          <TextElipsis
+            style={{
+              paddingLeft: 10,
+              paddingRight: 10,
+            }}
+          >
+            LAUT
+          </TextElipsis>
+        </Tooltip>
         <IconArrowRight />
-        <span
-          style={{
-            paddingLeft: 10,
+        <Tooltip
+          color={styleGlobal.colors.netral}
+          title={
+            ' DERMAGA HAHHAHAHAHAHHAHAHHAHHAHHAHAHAHAHHAHAHHAHHAHHAHAHAHAHHAHAHHAHHAHHAHAHAHAHHAHAHHAHHAHHAHAHAHAHHAHAHHAH'
+          }
+          overlayInnerStyle={{
+            borderRadius: 10,
+            maxWidth: 250,
+            color: 'black',
           }}
+          placement="topLeft"
         >
-          DERMAGA
-        </span>
+          <TextElipsis
+            style={{
+              paddingLeft: 10,
+            }}
+          >
+            DERMAGA HAHHAHAHAHAHHAHAHHAHHAHHAHAHAHAHHAHAHHAHHAHHAHAHAHAHHAHAHHAHHAHHAHAHAHAHHAHAHHAHHAHHAHAHAHAHHAHAHHAH
+          </TextElipsis>
+        </Tooltip>
       </Row>
     </div>
   );

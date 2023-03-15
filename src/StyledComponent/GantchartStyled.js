@@ -48,6 +48,7 @@ const StyledRowCardResourceWrapper = styled.div`
   width: 145px;
   background: white;
   cursor: pointer;
+  height: fit-content;
 `;
 
 const StyledRowGapChildWrapper = styled.div`
@@ -66,6 +67,12 @@ const StyledCardChildResource = styled.div`
   display: flex;
   line-height: 2;
 `;
+const TextElipsis = styled.span`
+  white-space: nowrap;
+  max-width: 8rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
 
 export {
   ItemDropDownGantchart,
@@ -77,4 +84,5 @@ export {
   StyledRowGapChildWrapper,
   StyledIconChilCard,
   StyledCardChildResource,
+  TextElipsis,
 };
