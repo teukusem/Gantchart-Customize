@@ -1,5 +1,5 @@
 export const IconPilotCarAssign = () => (
-  <svg width="47" height="35" viewBox="0 0 47 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg width="43" height="30" viewBox="0 0 47 36" fill="none" xmlns="http://www.w3.org/2000/svg">
     <ellipse cx="23.0676" cy="20.3129" rx="23.0676" ry="12.3696" fill="#4FABF1" />
     <g clip-path="url(#clip0_9939_209030)">
       <path

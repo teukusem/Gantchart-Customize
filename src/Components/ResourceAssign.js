@@ -21,12 +21,13 @@ const ResourceAssign = ({ onClick, IconResource }) => {
               borderRadius: 8,
               background: '#1BC5BD',
               color: styleGlobal.colors.netral,
+              fontSize: 12,
             }}
           >
             Available
           </span>
         </StyledWrapperTopDetailResouces>
-        <div>Pilot Car (B 222 UJK) , Ciwandan</div>
+        <div style={{ fontSize: 12 }}>Pilot Car (B 222 UJK) , Ciwandan</div>
       </StyledColCardDetailResources>
     </StyledRowCardAssign>
   );

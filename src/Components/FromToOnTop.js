@@ -11,8 +11,8 @@ export const FromToOnTop = ({}) => {
         justify="middle"
         align="middle"
         style={{
-          marginTop: -35,
-          fontSize: 12,
+          marginTop: -32,
+          fontSize: 10,
           color: 'black',
           width: '200%',
         }}
@@ -25,6 +25,7 @@ export const FromToOnTop = ({}) => {
             borderRadius: 10,
             maxWidth: 250,
             color: 'black',
+            fontSize: 10,
           }}
           placement="topLeft"
         >
@@ -41,12 +42,13 @@ export const FromToOnTop = ({}) => {
         <Tooltip
           color={styleGlobal.colors.netral}
           title={
-            ' DERMAGA HAHHAHAHAHAHHAHAHHAHHAHHAHAHAHAHHAHAHHAHHAHHAHAHAHAHHAHAHHAHHAHHAHAHAHAHHAHAHHAHHAHHAHAHAHAHHAHAHHAH'
+            'DERMAGA HAHHAHAHAHAHHAHAHH AHHAHHAHAHAHAHHAHAHHAHHAHHAHAHAHAHHAHAHHAHHAHHAHAHAHAHHAHAHHAHHAHHAHAHAHAHHAHAHHAH'
           }
           overlayInnerStyle={{
             borderRadius: 10,
             maxWidth: 250,
             color: 'black',
+            fontSize: 10,
           }}
           placement="topLeft"
         >

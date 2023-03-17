@@ -29,13 +29,14 @@ const StyledColCardDetailResources = styled(Col)`
 const StyledWrapperTopDetailResouces = styled.div`
   gap: 2rem;
   display: flex;
-  padding: 6px 0px 6px 0px;
+  padding: 8px 0px 8px 0px;
 `;
 
 const StyledSpanTitleResources = styled.span`
   font-weight: ${styleGlobal.fontWeight.bolder};
   display: flex;
   align-items: center;
+  font-size: 12px;
 `;
 
 const StyledAddResources = styled(Popover)`
@@ -53,6 +54,24 @@ const StyledDividerMarginLess = styled(Divider)`
   margin: 0;
 `;
 
+const StyledCardPriviewAssign = styled.div`
+  display: flex;
+  font-weight: ${styleGlobal.fontWeight.bold};
+  justify-content: space-between;
+`;
+
+const StyledDivHoverWrapper = styled.div`
+  &:hover {
+    background: #eff2f5;
+    padding: 0.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  &:hover ${StyledDividerMarginLess} {
+    background: #000;
+  }
+`;
 export {
   StyledRowCardAssign,
   StyledColCardAssignIcon,
@@ -61,4 +80,6 @@ export {
   StyledSpanTitleResources,
   StyledAddResources,
   StyledDividerMarginLess,
+  StyledCardPriviewAssign,
+  StyledDivHoverWrapper,
 };

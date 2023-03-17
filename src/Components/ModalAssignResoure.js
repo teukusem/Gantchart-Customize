@@ -1,4 +1,4 @@
-import { Col, Divider, Modal, Row, Tabs } from 'antd';
+import { Col, Modal, Row, Tabs } from 'antd';
 import Search from 'antd/es/transfer/search';
 import ResourceAssign from './ResourceAssign';
 import { useState } from 'react';
@@ -6,14 +6,21 @@ import { styleGlobal } from '../Style/styleGlobal';
 import { IconPilotCarAssign } from '../Icons/IconPilotCar';
 import ModalConfirmationAssignResources from './ModalConfrimationResource';
 import { IconAddCircle } from '../Icons/IconAddCircle';
-import { StyledAddResources, StyledDividerMarginLess } from '../StyledComponent/ModalAssignStyled';
+import {
+  StyledAddResources,
+  StyledCardPriviewAssign,
+  StyledDivHoverWrapper,
+  StyledDividerMarginLess,
+} from '../StyledComponent/ModalAssignStyled';
 import { StyledSpanRighDropDown } from '../StyledComponent/GantchartStyled';
+import ModalConfirmAddResource from './ModalConfrimAddResouce';
 
 const ModalAssignResource = ({ isModalOpen, handleCancels }) => {
   const onChange = (key) => {
     console.log(key);
   };
   const [modalConfrim, setIsModalConfrim] = useState(false);
+  const [modalAddResources, setIsModalAddResources] = useState(false);
   const showModal = () => {
     setIsModalConfrim(true);
   };
@@ -44,14 +51,14 @@ const ModalAssignResource = ({ isModalOpen, handleCancels }) => {
 
   const content = (
     <div>
-      <StyledSpanRighDropDown>Pilot Car Back</StyledSpanRighDropDown>
-      <StyledSpanRighDropDown>Pilot Boat Go</StyledSpanRighDropDown>
+      <StyledSpanRighDropDown onClick={() => setIsModalAddResources(true)}>Pilot Car Back</StyledSpanRighDropDown>
+      <StyledSpanRighDropDown onClick={() => setIsModalAddResources(true)}>Pilot Boat Go</StyledSpanRighDropDown>
     </div>
   );
 
   return (
     <>
-      <Modal title="Assign Resource" width={1000} open={isModalOpen} footer={null} onCancel={handleCancels}>
+      <Modal title="Assign Resource" width={900} open={isModalOpen} footer={null} onCancel={handleCancels}>
         <Row>
           <Col span={16}>
             <div style={{ padding: '1rem' }}>
@@ -70,7 +77,7 @@ const ModalAssignResource = ({ isModalOpen, handleCancels }) => {
                   overlayStyle={{ width: 200 }}
                 >
                   <IconAddCircle />
-                  <span style={{ color: '#2995E7' }}>Add Resource</span>
+                  <span style={{ color: '#2995E7', fontSize: 12 }}>Add Resource</span>
                 </StyledAddResources>
               }
               tabPosition={'left'}
@@ -81,19 +88,28 @@ const ModalAssignResource = ({ isModalOpen, handleCancels }) => {
           <Col span={8} style={{ borderLeft: '2px solid #E8EAEF', paddingLeft: 10 }}>
             <p style={{ fontWeight: styleGlobal.fontWeight.bolder }}>Preview</p>
             <StyledDividerMarginLess />
-            <div>
-              <div
-                style={{ display: 'flex', fontWeight: styleGlobal.fontWeight.bold, justifyContent: 'space-between' }}
-              >
+            <StyledDivHoverWrapper>
+              <StyledCardPriviewAssign>
                 <p>Pilot Car Go</p>
                 <p style={{ color: '#1BC5BD' }}>ID PL-001</p>
-              </div>
+              </StyledCardPriviewAssign>
               <span style={{ fontSize: 12 }}>B 222 UJK, Cipandan</span>
               <StyledDividerMarginLess />
-            </div>
+            </StyledDivHoverWrapper>
+
+            <StyledDivHoverWrapper>
+              <StyledCardPriviewAssign>
+                <p>Pilot Car Back</p>
+                <p style={{ color: '#1BC5BD' }}>ID PL-001</p>
+              </StyledCardPriviewAssign>
+              <span style={{ fontSize: 12 }}>B 222 UJK, Cipandan</span>
+              <StyledDividerMarginLess />
+            </StyledDivHoverWrapper>
           </Col>
         </Row>
       </Modal>
+
+      <ModalConfirmAddResource isModalOpen={modalAddResources} handleCancel={() => setIsModalAddResources(false)} />
 
       <ModalConfirmationAssignResources modalConfrim={modalConfrim} handleCancel={handleCancel} handleOk={handleOk} />
     </>

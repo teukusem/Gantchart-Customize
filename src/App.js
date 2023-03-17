@@ -1,8 +1,8 @@
 import moment from 'moment';
-import Timeline, { DateHeader, TimelineHeaders, TodayMarker } from 'react-calendar-timeline';
+import Timeline, { DateHeader, SidebarHeader, TimelineHeaders, TodayMarker } from 'react-calendar-timeline';
 import 'react-calendar-timeline/lib/Timeline.css';
 import './App.css';
-import { Col, Row, Tooltip } from 'antd';
+import { Button, Col, Input, Row, Tooltip } from 'antd';
 import TooltipCard from './Components/TooltipCard';
 import { styleGlobal } from './Style/styleGlobal';
 import { useState } from 'react';
@@ -20,6 +20,7 @@ import { FromToOnTop } from './Components/FromToOnTop';
 import ResourceItemDropdown from './Components/ResourceItemDropdown';
 import { InfoIcon } from './Icons/InfoIcon';
 import ModalAssignResource from './Components/ModalAssignResoure';
+import { StyledDividerMarginLess } from './StyledComponent/ModalAssignStyled';
 
 function App() {
   const isTabletOrMobile = useMediaQuery({ maxWidth: 1224 });
@@ -92,7 +93,7 @@ function App() {
   };
 
   const itemRenderDetail = ({ getItemProps, item, itemContext, timelineContext }) => {
-    console.log('>>>itemContext', itemContext);
+    console.log('>>> itemContext.width', itemContext);
 
     const maxWidthItems = 185;
     return (
@@ -109,27 +110,41 @@ function App() {
         <StyledRowPointer justify="space-around">
           <StyledColHeightFix span={18} onClick={() => handleItemClickedLeft(item)}>
             <FromToOnTop />
-            <div style={{ display: 'flex', height: 40 }}>
+            <div style={{ display: 'flex', height: 26 }}>
               <Tooltip
                 color={styleGlobal.colors.netral}
                 title={<TooltipCard />}
                 overlayInnerStyle={{
                   borderRadius: 10,
-                  width: 300,
+                  width: 210,
                 }}
                 placement="topLeft"
               >
-                <span style={{ marginRight: 10, alignItems: 'center', display: 'flex' }}>
+                <span
+                  style={{
+                    marginRight: 10,
+                    alignItems: 'center',
+                    display: itemContext.width > 120 ? 'flex' : 'none',
+                  }}
+                >
                   <InfoIcon />
                 </span>
               </Tooltip>
-              <span style={{ fontSize: itemContext.width > maxWidthItems ? 14 : 12 }}>{itemContext.title}</span>
+              <span
+                style={{
+                  fontSize: itemContext.width > maxWidthItems ? 12 : 10,
+                  alignSelf: 'center',
+                  position: itemContext.width > 120 ? 'relative' : 'absolute',
+                }}
+              >
+                {itemContext.title}
+              </span>
             </div>
           </StyledColHeightFix>
 
           <StyledColHeightFix span={6}>
             <Row>
-              <Col span={20} style={{ display: 'flex', justifyContent: 'end' }}>
+              <Col span={20} style={{ display: 'flex', justifyContent: 'end', height: 26 }}>
                 {itemContext.width > maxWidthItems && (
                   <>
                     <span className="iconInItem">
@@ -144,12 +159,12 @@ function App() {
                   </>
                 )}
                 <span onClick={() => showModalAdd()}>
-                  <IconPlusCircle responsiveIcon={itemContext.width > maxWidthItems ? 22 : 18} />
+                  <IconPlusCircle responsiveIcon={itemContext.width > maxWidthItems ? 18 : 16} />
                 </span>
               </Col>
               <Col
                 span={4}
-                style={{ display: 'flex', justifyContent: 'end' }}
+                style={{ display: 'flex', justifyContent: 'end', height: 26, alignItems: 'center' }}
                 onClick={() => handleItemClickedRight(item)}
               >
                 <DottedIcon />
@@ -175,52 +190,116 @@ function App() {
   };
 
   const minZoom = 60 * 60 * 7000; // 5 hour in milliseconds
-  const maxZoom = 60 * 60 * 12000; // 1 day in milliseconds
+  const maxZoom = 60 * 60 * 9000; // 1 day in milliseconds
 
   return (
-    <div className="container">
-      {isTabletOrMobile && (
-        <div className="isNotDesktop">
-          <p>
-            Sorry Cannot Open From Handphone :( <br /> You Can Open It From Desktop Or PC
-          </p>
-        </div>
-      )}
-      <ModalAssignResource isModalOpen={isModalOpen} handleOk={handleOk} handleCancels={handleCancel} />
+    <div style={{ display: 'flex', padding: 10, gap: 10 }}>
+      <div className="containerChildChart">
+        {isTabletOrMobile && (
+          <div className="isNotDesktop">
+            <p>
+              Sorry Cannot Open From Handphone :( <br /> You Can Open It From Desktop Or PC
+            </p>
+          </div>
+        )}
+        <ModalAssignResource isModalOpen={isModalOpen} handleOk={handleOk} handleCancels={handleCancel} />
+        <div className="timeline-background"></div>
 
-      <Timeline
-        groups={groups(rowDownItem)}
-        items={items}
-        sidebarWidth={0}
-        defaultTimeStart={moment().add(-4, 'hour')}
-        defaultTimeEnd={moment().add(4, 'hour')}
-        lineHeight={60}
-        itemRenderer={itemRenderDetail}
-        minZoom={minZoom}
-        maxZoom={maxZoom}
-        onItemDeselect={() => {
-          setRowDownItem(0);
-          setRightDownID(0);
-          setLeftDownID(0);
+        <Timeline
+          groups={groups(rowDownItem)}
+          items={items}
+          sidebarWidth={0}
+          defaultTimeStart={moment().add(-4, 'hour')}
+          defaultTimeEnd={moment().add(4, 'hour')}
+          lineHeight={60}
+          itemRenderer={itemRenderDetail}
+          minZoom={minZoom}
+          maxZoom={maxZoom}
+          onItemDeselect={() => {
+            setRowDownItem(0);
+            setRightDownID(0);
+            setLeftDownID(0);
+          }}
+        >
+          <TimelineHeaders>
+            {/* <SidebarHeader>
+              {({ getRootProps }) => {
+                return <div {...getRootProps()}>Left</div>;
+              }}
+            </SidebarHeader> */}
+            <DateHeader unit="primaryHeader" />
+            <DateHeader labelFormat={'HH:mm'} />
+          </TimelineHeaders>
+          <TodayMarker>
+            {({ styles }) => {
+              styles = {
+                ...styles,
+                backgroundColor: 'transparent',
+                width: '1px',
+                borderStyle: 'dashed',
+                borderColor: 'red',
+              };
+              return <div style={styles} />;
+            }}
+          </TodayMarker>
+        </Timeline>
+      </div>
+      <div
+        style={{
+          width: '25%',
+          background: '#fff',
+          border: '1px solid #c4c4c4',
+          borderRadius: 10,
+          padding: 10,
         }}
       >
-        <TimelineHeaders>
-          <DateHeader unit="primaryHeader" />
-          <DateHeader labelFormat={'HH:mm'} />
-        </TimelineHeaders>
-        <TodayMarker>
-          {({ styles }) => {
-            styles = {
-              ...styles,
-              backgroundColor: 'transparent',
-              width: '1px',
-              borderStyle: 'dashed',
-              borderColor: 'red',
-            };
-            return <div style={styles} />;
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
           }}
-        </TodayMarker>
-      </Timeline>
+        >
+          <Input
+            placeholder="Search"
+            style={{
+              width: 200,
+            }}
+          />
+          <Button>Filter</Button>
+        </div>
+        <div style={{ marginTop: 10, fontWeight: styleGlobal.fontWeight.bold }}>
+          <p>Vessel Name</p>
+          <StyledDividerMarginLess style={{ background: 'black' }} />
+        </div>
+        <Row
+          style={{
+            background: '#EFF2F5',
+            height: 50,
+            padding: 5,
+            marginTop: 2,
+            borderRadius: 5,
+          }}
+        >
+          <Col span={18} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <span style={{ fontSize: 14, fontWeight: styleGlobal.fontWeight.bold }}>MV Paros</span>
+            <span style={{ fontSize: 10 }}>MV Paros</span>
+          </Col>
+          <Col span={6} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <span
+              style={{
+                fontSize: 10,
+                background: ' #FFA800',
+                padding: 6,
+                borderRadius: 6,
+                textAlign: 'center',
+                minWidth: 68,
+              }}
+            >
+              Assigned
+            </span>
+          </Col>
+        </Row>
+      </div>
     </div>
   );
 }

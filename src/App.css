@@ -40,12 +40,14 @@
 .react-calendar-timeline .rct-dateHeader-primary {
   background: #ffff;
   color: black;
+  border-bottom: 1px solid #c4c4c4 !important;
 }
 
 .react-calendar-timeline .rct-dateHeader {
   border-left: none;
   border-bottom: none;
   background-color: #ffff;
+  font-size: 10px;
 }
 
 .rct-vertical-lines .rct-vl {
@@ -61,6 +63,7 @@
 .react-calendar-timeline .rct-horizontal-lines .rct-hl-odd {
   background: #ffff;
   border-bottom: none;
+  opacity: 0%;
 }
 
 .react-calendar-timeline .rct-header .rct-label-group > span {
@@ -82,6 +85,7 @@
 .react-calendar-timeline .rct-item {
   border-radius: 50px;
   border-width: 0px !important;
+  height: 26px !important;
 }
 
 .rct-dateHeader-primary span {
@@ -89,7 +93,15 @@
   position: sticky !important;
   top: 0 !important;
   left: 5% !important;
+  font-size: 10px;
   /* transform: translateX(-50%) !important; */
+}
+
+.date-header-wrapper {
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 2;
 }
 
 .iconInItem {
@@ -100,6 +112,28 @@
   display: flex;
   padding: 2px 0px;
   justify-content: center;
+}
+
+.containerChildChart {
+  position: relative;
+  padding: 10px;
+  width: 75%;
+  border: 1px solid #c4c4c4;
+  border-radius: 10px;
+  box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.16);
+}
+
+.timeline-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('https://aset.inaport4.co.id/data_file/pelindo.png');
+  background-repeat: no-repeat;
+  z-index: -1;
+  background-position: center;
+  opacity: 30%;
 }
 
 @media (max-width: 1024px) {
@@ -114,4 +148,8 @@
     align-items: center;
     height: 100vh;
   }
+}
+
+p {
+  font-size: 12px;
 }

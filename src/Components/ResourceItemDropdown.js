@@ -11,21 +11,22 @@ import { Button } from 'antd';
 import { PilotCar } from '../Icons/PilotCar';
 import { styleGlobal } from '../Style/styleGlobal';
 
-const ResourceItemDropdown = ({ responsiveItem = false }) => {
+const ResourceItemDropdown = ({ responsiveItem }) => {
+  console.log('>>responsiveItem', responsiveItem);
   return (
     <ItemDropDownGantchart widthItem={'100%'} backgorundColor={'transparent'} boxShadow={'none'}>
       <StyledWrapperResource justifyItems={'space-between'}>
         <StyledRowCardResourceWrapper>
           <StyledRowGapChildWrapper>
-            <StyledIconChilCard>
-              <PilotCar responsiveIcon={responsiveItem ? '26' : '18'} />
+            <StyledIconChilCard responsiveItem={responsiveItem}>
+              <PilotCar responsiveIcon={responsiveItem ? 22 : 16} />
             </StyledIconChilCard>
             <StyledCardChildResource>
               <span
                 style={{
                   fontWeight: styleGlobal.fontWeight.bolder,
                   color: styleGlobal.colors.primary,
-                  fontSize: responsiveItem ? 12 : 8,
+                  fontSize: responsiveItem ? 10 : 8,
                 }}
               >
                 B 12345 CD
@@ -34,42 +35,48 @@ const ResourceItemDropdown = ({ responsiveItem = false }) => {
                 style={{
                   fontWeight: styleGlobal.fontWeight.normal,
                   color: styleGlobal.colors.primary,
-                  fontSize: responsiveItem ? 12 : 8,
+                  fontSize: responsiveItem ? 10 : 8,
                 }}
               >
                 Pilot Car Go
               </span>
-              <span style={{ fontWeight: styleGlobal.fontWeight.semiBold, fontSize: responsiveItem ? 12 : 9 }}>
-                {responsiveItem ? 'SPK Delivered' : 'Delivered'}
+              <span
+                style={{
+                  fontWeight: styleGlobal.fontWeight.semiBold,
+                  fontSize: responsiveItem ? 10 : 9,
+                  color: '#1BC5BD',
+                }}
+              >
+                {responsiveItem ? 'SPK Accepted' : 'Accepted'}
               </span>
             </StyledCardChildResource>
           </StyledRowGapChildWrapper>
-          <div className="divWrapButtonSpk">
+          {/* <div className="divWrapButtonSpk">
             <Button
               size={'small'}
               style={{
                 width: '80%',
                 background: styleGlobal.colors.primary,
                 color: '#fff',
-                fontSize: responsiveItem ? 12 : 9,
+                fontSize: responsiveItem ? 10 : 9,
               }}
             >
               Send SPK
             </Button>
-          </div>
+          </div> */}
         </StyledRowCardResourceWrapper>
 
         <StyledRowCardResourceWrapper>
           <StyledRowGapChildWrapper>
-            <StyledIconChilCard>
-              <PilotCar responsiveIcon={responsiveItem ? '26' : '18'} />
+            <StyledIconChilCard responsiveItem={responsiveItem}>
+              <PilotCar responsiveIcon={responsiveItem ? 22 : 16} />
             </StyledIconChilCard>
             <StyledCardChildResource>
               <span
                 style={{
                   fontWeight: styleGlobal.fontWeight.bolder,
                   color: styleGlobal.colors.primary,
-                  fontSize: responsiveItem ? 12 : 8,
+                  fontSize: responsiveItem ? 10 : 8,
                 }}
               >
                 B 12345 CD
@@ -78,13 +85,19 @@ const ResourceItemDropdown = ({ responsiveItem = false }) => {
                 style={{
                   fontWeight: styleGlobal.fontWeight.normal,
                   color: styleGlobal.colors.primary,
-                  fontSize: responsiveItem ? 12 : 8,
+                  fontSize: responsiveItem ? 10 : 8,
                 }}
               >
                 Pilot Car Go
               </span>
-              <span style={{ fontWeight: styleGlobal.fontWeight.semiBold, fontSize: responsiveItem ? 12 : 9 }}>
-                {responsiveItem ? 'SPK Delivered' : 'Delivered'}
+              <span
+                style={{
+                  fontWeight: styleGlobal.fontWeight.semiBold,
+                  fontSize: responsiveItem ? 10 : 9,
+                  color: '#1BC5BD',
+                }}
+              >
+                {responsiveItem ? 'SPK Accepted' : 'Accepted'}
               </span>
             </StyledCardChildResource>
           </StyledRowGapChildWrapper>
@@ -95,7 +108,7 @@ const ResourceItemDropdown = ({ responsiveItem = false }) => {
                 width: '80%',
                 background: styleGlobal.colors.primary,
                 color: '#fff',
-                fontSize: responsiveItem ? 12 : 9,
+                fontSize: responsiveItem ? 10 : 7,
               }}
             >
               Send SPK
