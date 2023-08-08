@@ -72,6 +72,7 @@ const StyledDivHoverWrapper = styled.div`
     background: #000;
   }
 `;
+
 export {
   StyledRowCardAssign,
   StyledColCardAssignIcon,

@@ -76,6 +76,21 @@ const TextElipsis = styled.span`
   text-overflow: ellipsis;
 `;
 
+const StyledSidebarItems = styled(Row)`
+  background: #eff2f5;
+  min-height: 50px;
+  padding: 5px;
+  margin-top: 2px;
+  border-radius: 5px;
+  &:hover {
+    background: #dcdcdc;
+    padding: 1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+`;
+
 export {
   ItemDropDownGantchart,
   StyledRowPointer,
@@ -87,4 +102,5 @@ export {
   StyledIconChilCard,
   StyledCardChildResource,
   TextElipsis,
+  StyledSidebarItems,
 };
